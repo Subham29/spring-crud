@@ -22,13 +22,28 @@ public class CruddemoApplication {
 //			createStudent(studentDAO);
 //			createMultipleStudents(studentDAO);
 //			readStudent(studentDAO);
-			queryForStudents(studentDAO);
+//			queryForStudents(studentDAO);
+			queryForStudentsByLastName(studentDAO);
 		};
+	}
+
+	private void queryForStudentsByLastName(StudentDAO studentDAO) {
+		System.out.println("Querying students by First Name");
+		List<Student> students = studentDAO.findBYFirstName("Siprashi");
+		printStudents(students);
 	}
 
 	private void queryForStudents(StudentDAO studentDAO) {
 		System.out.println("Listing all students");
 		List<Student> allStudents = studentDAO.findAll();
+		printStudents(allStudents);
+	}
+
+	private void printStudents(List<Student> allStudents) {
+		if (allStudents == null || allStudents.isEmpty()) {
+			System.out.println("No students found!");
+			return;
+		}
 		for (Student student : allStudents) {
 			System.out.println(student);
 		}
@@ -56,7 +71,7 @@ public class CruddemoApplication {
 
 	private void createStudent(StudentDAO studentDAO) {
 		System.out.println("Creating new student object");
-		Student tempStudent = new Student("Subham", "Patel", "subham.patel@temenos.com");
+		Student tempStudent = new Student("Mary", "Kom", "mary.kom@temenos.com");
 
 		System.out.println("Saving the student");
 		studentDAO.save(tempStudent);
